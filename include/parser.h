@@ -1,9 +1,8 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef PARSE_H
+#define PARSE_H
 
 #include <ASTNode.h>
-#include <stdbool.h>
 
-ASTNode* parser(const char *input);
+ASTNode *parser(const char *input);
 
 #endif

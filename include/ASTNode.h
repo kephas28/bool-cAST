@@ -9,7 +9,7 @@ typedef enum {
     AST_AND,
     AST_OR,
     AST_IMPLIES,
-    AST_EQU,
+    AST_EQUIVALENT,
     AST_XOR
 } ASTNodeType;
 
@@ -29,5 +29,7 @@ typedef struct ASTNode {
         } binary;
     };
 } ASTNode;
+
+void ast_free(ASTNode *node);
 
 #endif

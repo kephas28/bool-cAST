@@ -3,24 +3,23 @@
 #include <interpreter.h>
 #include <parser.h>
 
-int main (int argc, char *argv[]) {
-    ASTNode true_node = {
-        .type = AST_BOOL,
-        .bool_value = true
-    };
+int main(int argc, char** argv) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s \"expression\"\n", argv[0]);
+        return 1;
+    }
 
-    ASTNode false_node = {
-        .type = AST_BOOL,
-        .bool_value = false
-    };
+    const char *input = argv[1];
+    ASTNode *ast = parser(input);
 
-    ASTNode xor_node = {
-        .type = AST_XOR,
-        .binary.left = &true_node,
-        .binary.right = &true_node
-    };
-    
-    bool result = interpreter(&xor_node);
-    
-    printf("Résultat : %s\n", result ? "True" : "False");
+    if (ast == NULL) {
+        fprintf(stderr, "Invalid expression\n");
+        return 1;
+    }
+
+    bool result = interpreter(ast);
+    printf("%s\n", result ? "true" : "false");
+    ast_free(ast);
+
+    return 0;
 }
