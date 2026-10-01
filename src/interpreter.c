@@ -1,4 +1,4 @@
-#include<ASTNode.h>
+#include <ASTNode.h>
 #include <stdbool.h>
 
 bool interpreter(const ASTNode *node) {
@@ -19,7 +19,7 @@ bool interpreter(const ASTNode *node) {
         case AST_IMPLIES:
             return !interpreter(node->binary.left) || interpreter(node->binary.right);
 
-        case AST_EQU:
+        case AST_EQUIVALENT:
             return interpreter(node->binary.left) == interpreter(node->binary.right);
 
         case AST_XOR:

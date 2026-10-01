@@ -1,6 +1,7 @@
-#include<stdio.h>
-#include<ASTNode.h>
-#include<interpreter.h>
+#include <stdio.h>
+#include <ASTNode.h>
+#include <interpreter.h>
+#include <parser.h>
 
 int main (int argc, char *argv[]) {
     ASTNode true_node = {
