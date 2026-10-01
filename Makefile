@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Wpedantic -std=c17
-NAME = bool-cAST
+NAME = build/bool-cAST.out
 
 SRC_DIR = src
 OBJ_DIR = build
@@ -32,4 +32,4 @@ re: fclean all
 .PHONY: all init clean fclean re
 
 test:
-	./bool-cAST
+	./build/bool-cAST.out
