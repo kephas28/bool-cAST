@@ -7,7 +7,10 @@ typedef enum {
     AST_BOOL,
     AST_NOT,
     AST_AND,
-    AST_OR
+    AST_OR,
+    AST_IMPLIES,
+    AST_EQU,
+    AST_XOR
 } ASTNodeType;
 
 typedef struct ASTNode {
