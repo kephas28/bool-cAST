@@ -14,6 +14,7 @@ The main goal of the project is to experiment with:
 - building the project with a Makefile.
 
 The project currently supports Boolean constants and several logical operators.
+
 ---
 ## 2. Supported Expressions
 
@@ -35,6 +36,7 @@ Parentheses can be nested, allowing expressions such as:
 ((true && false) || (true ^ false))
 ```
 The exact precedence and associativity of the operators are defined in the Bison grammar.
+
 ---
 ## 3. Project Structure
 The project is organized approximately as follows:
@@ -109,6 +111,7 @@ FALSE
 Whitespace is ignored by the lexer.
 
 Operators and parentheses are also converted into their corresponding tokens.
+
 ---
 ### 4.2 Syntax Analysis
 The grammar is implemented in `parser.y` using **Bison**.
@@ -131,6 +134,7 @@ ASTNode *parser(const char *input);
 This function takes an expression as a string and returns the root of the generated AST.
 
 If the expression cannot be parsed, `NULL` is returned.
+
 ---
 ## 5. Interpretation
 
@@ -168,6 +172,7 @@ AST_XOR
     → evaluate both operands and check that they differ
 ```
 The interpreter is therefore a recursive tree traversal.
+
 ---
 ## 6. Memory Management
 AST nodes are dynamically allocated while parsing.
@@ -177,6 +182,7 @@ Once an expression has been evaluated, the AST is no longer needed and is releas
 ast_free(ast);
 ```
 This keeps the ownership of the generated tree explicit and prevents the AST from remaining allocated after evaluation.
+
 ---
 ## 7. Building the Project
 The project uses a `Makefile` to automate compilation.
@@ -234,6 +240,7 @@ Output:
 true
 ```
 If the expression is invalid, the parser reports a syntax error and the program reports that the expression is invalid.
+
 ---
 ## 9. Testing
 The project contains a separate test executable.
@@ -265,6 +272,7 @@ assert(eval("(true || false) && true") == true);
 assert(eval("!((true && false) || true)") == false);
 ```
 A successful test run produces no assertion failure.
+
 ---
 ## 10. Makefile Commands
 The main Makefile provides several useful commands.
@@ -303,6 +311,7 @@ Removes the build directory.
 make re
 ```
 Cleans the project and builds it again.
+
 ---
 ## 11. Development Approach
 The project was developed incrementally.
@@ -321,6 +330,7 @@ The main steps were:
 10. Test increasingly complex expressions, including nested parentheses.
 
 The project was intentionally kept relatively small in order to focus on the interaction between the lexer, parser, AST, and interpreter.
+
 ---
 ## 12. Use of AI Assistance
 AI assistance, specifically **ChatGPT**, was used during the development of this project as a programming support tool.
@@ -340,6 +350,7 @@ The AI was **not used as a substitute for understanding or testing the project**
 In particular, several issues encountered during development were diagnosed through the interaction between the implementation and the test results. The final code and project structure were validated by compiling and running the program and its test suite.
 
 AI assistance should therefore be considered part of the development process, similar to consulting documentation or discussing implementation ideas, rather than as the sole author of the project.
+
 ---
 ## 13. Limitations and Possible Improvements
 This project is intentionally simple and has several possible areas for improvement.
