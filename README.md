@@ -1,5 +1,5 @@
 # bool-cAST
-## 1. Project Overview
+## I. Project Overview
 **bool-cAST** is a small Boolean expression parser and interpreter written in **C**.
 
 The project takes a Boolean expression as input, parses it using **Flex** and **Bison**, builds an **Abstract Syntax Tree (AST)** representing the expression, and finally evaluates the AST to produce a Boolean result.
@@ -16,7 +16,7 @@ The main goal of the project is to experiment with:
 The project currently supports Boolean constants and several logical operators.
 
 ---
-## 2. Supported Expressions
+## II. Supported Expressions
 
 The following Boolean values and operators are currently supported:
 | Syntax | Meaning |
@@ -38,7 +38,7 @@ Parentheses can be nested, allowing expressions such as:
 The exact precedence and associativity of the operators are defined in the Bison grammar.
 
 ---
-## 3. Project Structure
+## III. Project Structure
 The project is organized approximately as follows:
 ```text
 bool-cAST/
@@ -91,9 +91,9 @@ can be represented approximately as:
    true    false
 ```
 ---
-## 4. Parsing Process
+## IV. Parsing Process
 The parsing process is divided into two main stages: lexical analysis and syntax analysis.
-### 4.1 Lexical Analysis
+### IV.1 Lexical Analysis
 The lexer is implemented in `lexer.l` using **Flex**.
 
 It converts the input string into tokens that can be understood by the parser.
@@ -113,7 +113,7 @@ Whitespace is ignored by the lexer.
 Operators and parentheses are also converted into their corresponding tokens.
 
 ---
-### 4.2 Syntax Analysis
+### IV.2 Syntax Analysis
 The grammar is implemented in `parser.y` using **Bison**.
 
 Bison receives the tokens produced by Flex and checks whether they form a valid Boolean expression.
@@ -136,7 +136,7 @@ This function takes an expression as a string and returns the root of the genera
 If the expression cannot be parsed, `NULL` is returned.
 
 ---
-## 5. Interpretation
+## V. Interpretation
 
 Once the AST has been constructed, it is evaluated recursively by the interpreter.
 
@@ -174,7 +174,7 @@ AST_XOR
 The interpreter is therefore a recursive tree traversal.
 
 ---
-## 6. Memory Management
+## VI. Memory Management
 AST nodes are dynamically allocated while parsing.
 
 Once an expression has been evaluated, the AST is no longer needed and is released using:
@@ -184,7 +184,7 @@ ast_free(ast);
 This keeps the ownership of the generated tree explicit and prevents the AST from remaining allocated after evaluation.
 
 ---
-## 7. Building the Project
+## VII. Building the Project
 The project uses a `Makefile` to automate compilation.
 
 The main requirements are:
@@ -203,7 +203,7 @@ build/bool-cAST.out
 ```
 ---
 
-## 8. Using the Program
+## VIII. Using the Program
 The program expects a Boolean expression as a command-line argument.
 
 For example:
@@ -242,7 +242,7 @@ true
 If the expression is invalid, the parser reports a syntax error and the program reports that the expression is invalid.
 
 ---
-## 9. Testing
+## IX. Testing
 The project contains a separate test executable.
 
 Tests can be run with:
@@ -274,7 +274,7 @@ assert(eval("!((true && false) || true)") == false);
 A successful test run produces no assertion failure.
 
 ---
-## 10. Makefile Commands
+## X. Makefile Commands
 The main Makefile provides several useful commands.
 ### Build
 ```bash
@@ -313,7 +313,7 @@ make re
 Cleans the project and builds it again.
 
 ---
-## 11. Development Approach
+## XI. Development Approach
 The project was developed incrementally.
 
 The main steps were:
@@ -332,7 +332,7 @@ The main steps were:
 The project was intentionally kept relatively small in order to focus on the interaction between the lexer, parser, AST, and interpreter.
 
 ---
-## 12. Use of AI Assistance
+## XII. Use of AI Assistance
 AI assistance, specifically **ChatGPT**, was used during the development of this project as a programming support tool.
 
 The AI was mainly used for:
@@ -352,7 +352,7 @@ In particular, several issues encountered during development were diagnosed thro
 AI assistance should therefore be considered part of the development process, similar to consulting documentation or discussing implementation ideas, rather than as the sole author of the project.
 
 ---
-## 13. Limitations and Possible Improvements
+## XIII. Limitations and Possible Improvements
 This project is intentionally simple and has several possible areas for improvement.
 
 Possible future developments include:
@@ -368,7 +368,7 @@ Possible future developments include:
 The current implementation is primarily intended as a learning project around parsing, ASTs, and interpretation rather than as a complete Boolean expression language.
 ---
 
-## 14. Conclusion
+## XIV. Conclusion
 **bool-cAST** is a small C project demonstrating how a textual Boolean expression can be transformed into an Abstract Syntax Tree and evaluated recursively.
 
 The project combines:
