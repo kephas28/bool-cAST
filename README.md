@@ -501,4 +501,3 @@ Input expression
 ```
 
 Although the project is relatively small, it provides a practical example of how lexical analysis, parsing, tree-based representations, recursive evaluation, memory management, and automated testing can be combined in a C program.
-```
