@@ -1,15 +1,12 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Wpedantic -std=c17
 
-$(PARSER_C) $(PARSER_H): $(PARSER_SRC)
-	mkdir -p $(OBJ_DIR)
-	bison -d -o $(PARSER_C) $(PARSER_SRC)
-
-NAME = build/bool-cAST.out
-
 SRC_DIR = src
 OBJ_DIR = build
 INC_DIR = include
+
+NAME = $(OBJ_DIR)/bool-cAST.out
+TEST_NAME = $(OBJ_DIR)/tests.out
 
 PARSER_SRC = $(SRC_DIR)/parser.y
 PARSER_C = $(OBJ_DIR)/parser.tab.c
@@ -18,22 +15,43 @@ PARSER_H = $(OBJ_DIR)/parser.tab.h
 LEXER_SRC = $(SRC_DIR)/lexer.l
 LEXER_C = $(OBJ_DIR)/lex.yy.c
 
-SRC = $(wildcard $(SRC_DIR)/*.c)
+# Sources du programme, sans test.c
+SRC = $(filter-out $(SRC_DIR)/test.c,$(wildcard $(SRC_DIR)/*.c))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+# Source des tests
+TEST_OBJ = $(OBJ_DIR)/test.o
 
 GENERATED_OBJ = \
 	$(OBJ_DIR)/parser.tab.o \
 	$(OBJ_DIR)/lex.yy.o
 
 
+# =========================
+# Default
+# =========================
+
 all: $(NAME)
 
 
 # =========================
-# Link
+# Programme
 # =========================
 
 $(NAME): $(OBJ) $(GENERATED_OBJ)
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) $^ -o $@ -lfl
+
+
+# =========================
+# Tests
+# =========================
+
+test: $(TEST_NAME)
+	./$(TEST_NAME)
+
+$(TEST_NAME): $(filter-out $(OBJ_DIR)/main.o,$(OBJ)) $(TEST_OBJ) $(GENERATED_OBJ)
+	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) $^ -o $@ -lfl
 
 
@@ -56,7 +74,7 @@ $(LEXER_C): $(LEXER_SRC) $(PARSER_H)
 
 
 # =========================
-# C sources
+# Compilation C
 # =========================
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -65,19 +83,27 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 
 # =========================
-# Bison object
+# Compilation Bison
 # =========================
 
 $(OBJ_DIR)/parser.tab.o: $(PARSER_C) $(PARSER_H)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -I$(OBJ_DIR) -c $(PARSER_C) -o $@
+	$(CC) $(CFLAGS) -I$(INC_DIR) -I$(OBJ_DIR) -c $< -o $@
 
 
 # =========================
-# Flex object
+# Compilation Flex
 # =========================
 
 $(OBJ_DIR)/lex.yy.o: $(LEXER_C) $(PARSER_H)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -I$(OBJ_DIR) -c $(LEXER_C) -o $@
+	$(CC) $(CFLAGS) -I$(INC_DIR) -I$(OBJ_DIR) -c $< -o $@
+
+
+# =========================
+# Run
+# =========================
+
+run: $(NAME)
+	./$(NAME) "$(filter-out $@,$(MAKECMDGOALS))"
 
 
 # =========================
@@ -92,15 +118,10 @@ fclean: clean
 re: fclean all
 
 
-# =========================
-# Test
-# =========================
-
-test: $(NAME)
-	./$(NAME) "$(filter-out $@,$(MAKECMDGOALS))"
-
+# Permet :
+# make run "True && False"
 %:
 	@:
 
 
-.PHONY: all clean fclean re test
+.PHONY: all test run clean fclean re
