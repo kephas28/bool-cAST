@@ -382,7 +382,7 @@ Input expression
     Tokens
        │
        ▼
-    Bison
+     Bison
        │
        ▼
       AST
