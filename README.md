@@ -73,7 +73,7 @@ AST_NOT
 AST_AND
 AST_OR
 AST_IMPLIES
-AST_EQU
+AST_EQUIVALENT
 AST_XOR
 ```
 Boolean constants are stored directly in the node, while unary and binary operators contain pointers to their child nodes.
@@ -165,7 +165,7 @@ AST_OR
 AST_IMPLIES
     → evaluate A and B, then compute !A || B
 
-AST_EQU
+AST_EQUIVALENT
     → evaluate both operands and compare them
 
 AST_XOR
